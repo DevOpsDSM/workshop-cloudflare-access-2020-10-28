@@ -1,6 +1,8 @@
 # workshop-cloudflare-access-2020-10-28
 
-This codebase was used to demo Cloudflare Access.
+This codebase was used to demo Cloudflare Access during a Monthly DevopsDSM meetup. See the link to view the recording (it's in the comments).
+
+https://www.meetup.com/DevOpsDSM/events/mlqjhrybcnblc/
 
 _NOTE_: we assume you have a cloudflare account and at least one zone setup already.
 
