@@ -2,7 +2,7 @@
 
 This codebase was used to demo Cloudflare Access
 
-## Setup
+## Server Setup
 
 Login to cloudflared
 
@@ -17,6 +17,18 @@ $ mkdir -p cloudflared
 $ cp ~/.cloudflared/cert.pem ./cloudflared/
 ```
 
-## Hit authenticated URLS:
+## Client Setup
+
+Connecting to the web ui just navigate to `django.spencerherzberg.com`
+
+To connect to the database remotely:
+
+```bash
+$ cloudflared access tcp --hostname https://django-postgres.spencerherzberg.com --url localhost:5432
+```
+
+This will open a browser window to approve the request. After you click approve, any postgres client can now connect to `localhost:5432`.
+
+## Hit authenticated URLS different ways
 
 https://developers.cloudflare.com/access/cli/connecting-from-cli
