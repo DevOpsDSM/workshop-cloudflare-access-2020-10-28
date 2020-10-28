@@ -1,0 +1,30 @@
+version: "3.8"
+   
+services:
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  db-tunnel:
+    image: cloudflare/cloudflared:${CLOUDFLARED_TAG}
+    command: tunnel --no-autoupdate --hostname django-postgres.${BASE_HOST} --url tcp://db:5432
+    volumes:
+      - ./cloudflared/cert.pem:/etc/cloudflared/cert.pem
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+
+  web-tunnel:
+    image: cloudflare/cloudflared:${CLOUDFLARED_TAG}
+    command: tunnel --no-autoupdate --hostname django.${BASE_HOST} --url http://web:8000
+    volumes:
+      - ./cloudflared/cert.pem:/etc/cloudflared/cert.pem
